@@ -1,4 +1,4 @@
-﻿using GymTracker2.Models;
+﻿using GymTracker.Models;
 using Microsoft.EntityFrameworkCore;
 
 public class GymContext : DbContext

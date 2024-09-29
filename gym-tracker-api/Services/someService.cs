@@ -1,4 +1,4 @@
-﻿namespace GymTracker2.Services
+﻿namespace GymTracker.Services
 {
     public class someService
     {

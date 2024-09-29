@@ -1,4 +1,4 @@
-﻿namespace GymTracker2.Models
+﻿namespace GymTracker.Models
 {
     public class TrackingEntry
     {

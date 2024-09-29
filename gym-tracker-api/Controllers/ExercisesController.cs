@@ -1,8 +1,8 @@
-﻿using GymTracker2.Models;
+﻿using GymTracker.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace GymTracker2.Controllers
+namespace GymTracker.Controllers
 {
     [ApiController]
     [Route("[controller]")]

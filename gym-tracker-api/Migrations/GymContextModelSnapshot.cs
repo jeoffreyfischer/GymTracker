@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GymTracker2.Migrations
+namespace GymTracker.Migrations
 {
     [DbContext(typeof(GymContext))]
     partial class GymContextModelSnapshot : ModelSnapshot
@@ -21,7 +21,7 @@ namespace GymTracker2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GymTracker2.Models.Exercise", b =>
+            modelBuilder.Entity("GymTracker.Models.Exercise", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,7 +55,7 @@ namespace GymTracker2.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GymTracker2.Models.TrackingEntry", b =>
+            modelBuilder.Entity("GymTracker.Models.TrackingEntry", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,9 +114,9 @@ namespace GymTracker2.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GymTracker2.Models.TrackingEntry", b =>
+            modelBuilder.Entity("GymTracker.Models.TrackingEntry", b =>
                 {
-                    b.HasOne("GymTracker2.Models.Exercise", "Exercise")
+                    b.HasOne("GymTracker.Models.Exercise", "Exercise")
                         .WithMany("TrackingEntries")
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -125,7 +125,7 @@ namespace GymTracker2.Migrations
                     b.Navigation("Exercise");
                 });
 
-            modelBuilder.Entity("GymTracker2.Models.Exercise", b =>
+            modelBuilder.Entity("GymTracker.Models.Exercise", b =>
                 {
                     b.Navigation("TrackingEntries");
                 });

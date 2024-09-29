@@ -1,6 +1,6 @@
-@GymTracker2_HostAddress = http://localhost:5246
+@GymTracker_HostAddress = http://localhost:5246
 
-GET {{GymTracker2_HostAddress}}/weatherforecast/
+GET {{GymTracker_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
