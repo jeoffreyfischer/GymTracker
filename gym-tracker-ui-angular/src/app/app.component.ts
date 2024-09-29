@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,12 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'gym-tracker-ui-angular';
+
+  constructor(private http: HttpClient) {}
+
+  testApi() {
+    const url = "https://localhost:44372/Exercises";
+    this.http.get(url).subscribe(response =>
+      console.log(response));
+  }
 }
