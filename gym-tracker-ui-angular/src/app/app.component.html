@@ -1,3 +1,11 @@
-<h1>Hello World</h1>
-
-<button (click)="testApi()">Call API</button>
+<div>
+  <h1>{{ title }}</h1>
+  <h2>List of Exercises</h2>
+  <ul>
+    @for (exercise of exercises; track exercise.name) {
+      <li>{{ exercise.name }}</li>
+      } @empty {
+      <li>There are no items.</li>
+      }
+  </ul>
+</div>

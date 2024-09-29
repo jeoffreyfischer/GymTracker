@@ -10,13 +10,20 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'gym-tracker-ui-angular';
+  title = 'GYM TRACKER';
+  exercises: any[] = [];
 
   constructor(private http: HttpClient) {}
 
+  ngOnInit() {
+    this.testApi();
+  }
+
   testApi() {
     const url = "https://localhost:44372/Exercises";
-    this.http.get(url).subscribe(response =>
-      console.log(response));
+    this.http.get<any[]>(url).subscribe(response => {
+      this.exercises = response;
+      console.log(this.exercises);
+    });
   }
 }
