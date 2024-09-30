@@ -1,4 +1,5 @@
 ﻿using GymTracker.Models;
+using GymTracker.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,12 +9,12 @@ namespace GymTracker.Controllers
     [Route("[controller]")]
     public class ExercisesController : ControllerBase
     {
-        private readonly GymContext _context;
+        private readonly ExerciseService _exerciseService;
         private readonly ILogger<ExercisesController> _logger;
 
-        public ExercisesController(GymContext context, ILogger<ExercisesController> logger)
+        public ExercisesController(ExerciseService exerciseService, ILogger<ExercisesController> logger)
         {
-            _context = context;
+            _exerciseService = exerciseService;
             _logger = logger;
         }
 
@@ -21,22 +22,23 @@ namespace GymTracker.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Exercise>>> GetExercises()
         {
-            return await _context.Exercises.ToListAsync();
+            return await _exerciseService.GetExercisesAsync();
         }
 
         // POST: /exercises
         [HttpPost]
         public async Task<ActionResult<Exercise>> CreateExercise(Exercise exercise)
         {
-            if (exercise == null)
+            try
             {
-                return BadRequest("Exercise cannot be null.");
+                var createdExercise = await _exerciseService.CreateExerciseAsync(exercise);
+                return CreatedAtAction(nameof(GetExercises), new { id = createdExercise.Id }, createdExercise);
             }
-
-            _context.Exercises.Add(exercise);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetExercises), new { id = exercise.Id }, exercise);
+            catch (ArgumentNullException ex)
+            {
+                _logger.LogError(ex, "Error creating exercise.");
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT: /exercises/{id}
@@ -48,7 +50,7 @@ namespace GymTracker.Controllers
                 return BadRequest("Exercise ID mismatch.");
             }
 
-            var existingExercise = await _context.Exercises.FindAsync(id);
+            var existingExercise = await _exerciseService.GetExerciseByIdAsync(id);
             if (existingExercise == null)
             {
                 return NotFound();
@@ -58,11 +60,11 @@ namespace GymTracker.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _exerciseService.UpdateExerciseAsync(existingExercise);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ExerciseExists(id))
+                if (!await _exerciseService.ExerciseExistsAsync(id))
                 {
                     return NotFound();
                 }
@@ -72,24 +74,17 @@ namespace GymTracker.Controllers
             return NoContent();
         }
 
-        private bool ExerciseExists(int id)
-        {
-            return _context.Exercises.Any(e => e.Id == id);
-        }
-
         // DELETE: /exercises/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExercise(int id)
         {
-            var exercise = await _context.Exercises.FindAsync(id);
+            var exercise = await _exerciseService.GetExerciseByIdAsync(id);
             if (exercise == null)
             {
                 return NotFound();
             }
 
-            _context.Exercises.Remove(exercise);
-            await _context.SaveChangesAsync();
-
+            await _exerciseService.DeleteExerciseAsync(exercise);
             return NoContent();
         }
     }
