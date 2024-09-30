@@ -12,16 +12,19 @@ public class ExerciseService
         _context = context;
     }
 
+    // Get all tracking exercises
     public async Task<List<Exercise>> GetExercisesAsync()
     {
         return await _context.Exercises.ToListAsync();
     }
 
+    // Get an exercise by ID
     public async Task<Exercise?> GetExerciseByIdAsync(int id)
     {
         return await _context.Exercises.FindAsync(id);
     }
 
+    // Create a new exercise
     public async Task<Exercise> CreateExerciseAsync(Exercise exercise)
     {
         if (exercise == null)
@@ -34,12 +37,14 @@ public class ExerciseService
         return exercise;
     }
 
+    // Update an existing exercise
     public async Task UpdateExerciseAsync(Exercise exercise)
     {
         _context.Entry(exercise).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
 
+    // Delete an exercise by ID
     public async Task DeleteExerciseAsync(Exercise exercise)
     {
         _context.Exercises.Remove(exercise);

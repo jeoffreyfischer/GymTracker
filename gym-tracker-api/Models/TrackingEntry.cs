@@ -1,4 +1,6 @@
-﻿namespace GymTracker.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace GymTracker.Models;
 
 public class TrackingEntry
 {
@@ -8,5 +10,7 @@ public class TrackingEntry
     public int Reps { get; set; }
     public int Sets { get; set; }
     public int ExerciseId { get; set; }
+
+    [JsonIgnore] // Prevents circular reference
     public Exercise? Exercise { get; set; }
 }
