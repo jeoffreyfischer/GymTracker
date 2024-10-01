@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ExerciseService } from './services/exercise.service';
+import { TrackingEntryService } from './services/tracking-entry.service';
+import { Exercise } from './models/exercise.model';
+import { TrackingEntry } from './models/tracking-entry.model';
 
 @Component({
   selector: 'app-root',
@@ -9,21 +12,29 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'GYM TRACKER';
-  exercises: any[] = [];
+  exercises: Exercise[] = [];
+  trackingEntries: TrackingEntry[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private exerciseService: ExerciseService, private trackingEntryService: TrackingEntryService) {}
 
   ngOnInit() {
-    this.testApi();
+    this.getExercises();
+    this.getTrackingEntries();
   }
 
-  testApi() {
-    const url = "https://localhost:44372/Exercises";
-    this.http.get<any[]>(url).subscribe(response => {
+  getExercises() {
+    this.exerciseService.getExercises().subscribe(response => {
       this.exercises = response;
       console.log(this.exercises);
+    });
+  }
+
+  getTrackingEntries() {
+    this.trackingEntryService.getTrackingEntries().subscribe(response => {
+      this.trackingEntries = response;
+      console.log(this.trackingEntries);
     });
   }
 }

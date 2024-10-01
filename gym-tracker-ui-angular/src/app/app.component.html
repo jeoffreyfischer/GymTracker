@@ -8,4 +8,12 @@
       <li>There are no items.</li>
       }
   </ul>
+  <h2>List of Entries</h2>
+  <ul>
+    @for (trackingEntry of trackingEntries; track trackingEntry.date) {
+      <li>{{ trackingEntry.date }}</li>
+      } @empty {
+      <li>There are no items.</li>
+      }
+  </ul>
 </div>
