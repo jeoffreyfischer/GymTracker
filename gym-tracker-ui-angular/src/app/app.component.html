@@ -1,19 +1,39 @@
 <div>
   <h1>{{ title }}</h1>
-  <h2>List of Exercises</h2>
-  <ul>
-    @for (exercise of exercises; track exercise.name) {
-      <li>{{ exercise.name }}</li>
+
+  <label for="exercise-select">Select Exercise:</label>
+  <select id="exercise-select" [(ngModel)]="selectedExerciseId" (change)="onExerciseChange($event)">
+    @for (exercise of exercises; track exercise.id) {
+      <option [value]="exercise.id">{{ exercise.name }}</option>
+    } @empty {
+      <option disabled>No exercises available</option>
+    }
+  </select>
+
+  <h2>Tracking Data for {{ selectedExerciseName }}</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Load (kg)</th>
+        <th>Reps</th>
+        <th>Sets</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (entry of filteredTrackingEntries; track entry.id) {
+        <tr>
+          <td>{{ entry.date }}</td>
+          <td>{{ entry.load }}</td>
+          <td>{{ entry.reps }}</td>
+          <td>{{ entry.sets }}</td>
+        </tr>
       } @empty {
-      <li>There are no items.</li>
+        <tr>
+          <td colspan="4">No entries available for the selected exercise.</td>
+        </tr>
       }
-  </ul>
-  <h2>List of Entries</h2>
-  <ul>
-    @for (trackingEntry of trackingEntries; track trackingEntry.date) {
-      <li>{{ trackingEntry.date }}</li>
-      } @empty {
-      <li>There are no items.</li>
-      }
-  </ul>
+    </tbody>
+  </table>
 </div>
