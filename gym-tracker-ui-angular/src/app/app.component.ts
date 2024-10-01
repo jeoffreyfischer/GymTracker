@@ -5,12 +5,12 @@ import { TrackingEntryService } from './services/tracking-entry.service';
 import { Exercise } from './models/exercise.model';
 import { TrackingEntry } from './models/tracking-entry.model';
 import { FormsModule } from '@angular/forms';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule],
+  imports: [RouterOutlet, FormsModule, DatePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

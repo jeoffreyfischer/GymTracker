@@ -1,4 +1,4 @@
-<div>
+<main>
   <h1>{{ title }}</h1>
 
   <label for="exercise-select">Select Exercise:</label>
@@ -24,7 +24,7 @@
     <tbody>
       @for (entry of filteredTrackingEntries; track entry.id) {
         <tr>
-          <td>{{ entry.date }}</td>
+          <td>{{ entry.date | date:'ccc - M/d/yy' }}</td>
           <td>{{ entry.load }}</td>
           <td>{{ entry.reps }}</td>
           <td>{{ entry.sets }}</td>
@@ -36,4 +36,4 @@
       }
     </tbody>
   </table>
-</div>
+</main>
