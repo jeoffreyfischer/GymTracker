@@ -4,11 +4,13 @@ import { ExerciseService } from './services/exercise.service';
 import { TrackingEntryService } from './services/tracking-entry.service';
 import { Exercise } from './models/exercise.model';
 import { TrackingEntry } from './models/tracking-entry.model';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -16,6 +18,9 @@ export class AppComponent implements OnInit {
   title = 'GYM TRACKER';
   exercises: Exercise[] = [];
   trackingEntries: TrackingEntry[] = [];
+  filteredTrackingEntries: TrackingEntry[] = [];
+  selectedExerciseId: number | null = null;
+  selectedExerciseName: string = '';
 
   constructor(private exerciseService: ExerciseService, private trackingEntryService: TrackingEntryService) {}
 
@@ -36,5 +41,17 @@ export class AppComponent implements OnInit {
       this.trackingEntries = response;
       console.log(this.trackingEntries);
     });
+  }
+
+  onExerciseChange(event: Event) {
+    const selectedExerciseId = Number((event.target as HTMLSelectElement).value);
+    this.selectedExerciseId = selectedExerciseId;
+
+    const selectedExercise = this.exercises.find(ex => ex.id === selectedExerciseId);
+    this.selectedExerciseName = selectedExercise ? selectedExercise.name : '';
+
+    this.filteredTrackingEntries = this.trackingEntries.filter(
+      entry => entry.exerciseId === this.selectedExerciseId
+    );
   }
 }
