@@ -32,12 +32,18 @@ export class AppComponent implements OnInit {
   getExercises() {
     this.exerciseService.getExercises().subscribe(response => {
       this.exercises = response;
+      if (response.length > 0) {
+        this.selectedExerciseId = response[0].id;
+        this.selectedExerciseName = response[0].name;
+      }
+      this.filterTrackingEntries();
     });
   }
 
   getTrackingEntries() {
     this.trackingEntryService.getTrackingEntries().subscribe(response => {
       this.trackingEntries = response;
+      this.filterTrackingEntries();
     });
   }
 
@@ -48,8 +54,16 @@ export class AppComponent implements OnInit {
     const selectedExercise = this.exercises.find(ex => ex.id === selectedExerciseId);
     this.selectedExerciseName = selectedExercise ? selectedExercise.name : '';
 
-    this.filteredTrackingEntries = this.trackingEntries.filter(
-      entry => entry.exerciseId === this.selectedExerciseId
-    );
+    this.filterTrackingEntries();
+  }
+
+  filterTrackingEntries() {
+    if (this.selectedExerciseId !== null) {
+      this.filteredTrackingEntries = this.trackingEntries.filter(
+        entry => entry.exerciseId === this.selectedExerciseId
+      );
+    } else {
+      this.filteredTrackingEntries = [];
+    }
   }
 }
