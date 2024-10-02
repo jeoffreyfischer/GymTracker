@@ -10,7 +10,7 @@ describe('NewTrackingEntryDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NewTrackingEntryDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(NewTrackingEntryDialogComponent);
     component = fixture.componentInstance;

@@ -6,7 +6,9 @@ import { Exercise } from './models/exercise.model';
 import { TrackingEntry } from './models/tracking-entry.model';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NewTrackingEntryDialogComponent } from './components/new-tracking-entry-dialog/new-tracking-entry-dialog.component';
 
 
 @Component({
@@ -24,7 +26,11 @@ export class AppComponent implements OnInit {
   selectedExerciseId: number | null = null;
   selectedExerciseName: string = '';
 
-  constructor(private exerciseService: ExerciseService, private trackingEntryService: TrackingEntryService) {}
+  constructor(
+    private exerciseService: ExerciseService,
+    private trackingEntryService: TrackingEntryService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.getExercises();
@@ -67,5 +73,31 @@ export class AppComponent implements OnInit {
     } else {
       this.filteredTrackingEntries = [];
     }
+  }
+
+  openNewEntryDialog() {
+    const dialogRef = this.dialog.open(NewTrackingEntryDialogComponent, {
+      data: { selectedExerciseName: this.selectedExerciseName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.addNewTrackingEntry(result);
+      }
+    });
+  }
+
+  addNewTrackingEntry(entry: { date: string, load: number, reps: number, sets: number }) {
+    const newEntry: TrackingEntry = {
+      id: this.trackingEntries.length + 1,
+      exerciseId: this.selectedExerciseId!,
+      date: entry.date,
+      loadInKg: entry.load,
+      reps: entry.reps,
+      sets: entry.sets
+    };
+
+    this.trackingEntries.push(newEntry);
+    this.filterTrackingEntries();
   }
 }
