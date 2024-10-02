@@ -1,6 +1,8 @@
-<main>
-  <h1 class="text-4xl font-bold bg-red-500">{{ title }}</h1>
+<main class="prose">
 
+  <h1 class="p-2 m-2 bg-SswRed">{{ title }}</h1>
+
+  <div class="m-2">
   <label for="exercise-select">Select Exercise:</label>
   <select id="exercise-select" [(ngModel)]="selectedExerciseId" (change)="onExerciseChange($event)">
     @for (exercise of exercises; track exercise.id) {
@@ -9,9 +11,11 @@
       <option disabled>No exercises available</option>
     }
   </select>
+</div>
 
-  <h2>Tracking Data for {{ selectedExerciseName }}</h2>
+  <h2 class="m-2">Tracking Data for {{ selectedExerciseName }}</h2>
 
+  <div class="m-2">
   <table>
     <thead>
       <tr>
@@ -25,7 +29,7 @@
       @for (entry of filteredTrackingEntries; track entry.id) {
         <tr>
           <td>{{ entry.date | date:'ccc - M/d/yy' }}</td>
-          <td>{{ entry.load }}</td>
+          <td>{{ entry.loadInKg }}</td>
           <td>{{ entry.reps }}</td>
           <td>{{ entry.sets }}</td>
         </tr>
@@ -36,4 +40,5 @@
       }
     </tbody>
   </table>
+</div>
 </main>

@@ -4,8 +4,14 @@ module.exports = {
     "./src/**/*.{html,ts}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        SswRed: '#CC4141',
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
 

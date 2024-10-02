@@ -1,7 +1,7 @@
 export interface TrackingEntry {
   id: number;
   date: string;
-  load: number;
+  loadInKg: number;
   reps: number;
   sets: number;
   exerciseId: number;
