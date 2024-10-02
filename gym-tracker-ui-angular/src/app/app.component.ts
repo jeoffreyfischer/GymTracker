@@ -12,7 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, FormsModule, DatePipe, MatDialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -47,5 +47,25 @@ export class AppComponent implements OnInit {
       this.trackingEntries = response;
       this.filterTrackingEntries();
     });
+  }
+
+  onExerciseChange(event: Event) {
+    const selectedExerciseId = Number((event.target as HTMLSelectElement).value);
+    this.selectedExerciseId = selectedExerciseId;
+
+    const selectedExercise = this.exercises.find(ex => ex.id === selectedExerciseId);
+    this.selectedExerciseName = selectedExercise ? selectedExercise.name : '';
+
+    this.filterTrackingEntries();
+  }
+
+  filterTrackingEntries() {
+    if (this.selectedExerciseId !== null) {
+      this.filteredTrackingEntries = this.trackingEntries.filter(
+        entry => entry.exerciseId === this.selectedExerciseId
+      );
+    } else {
+      this.filteredTrackingEntries = [];
+    }
   }
 }
