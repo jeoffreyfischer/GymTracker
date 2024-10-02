@@ -6,11 +6,12 @@ import { Exercise } from './models/exercise.model';
 import { TrackingEntry } from './models/tracking-entry.model';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, DatePipe],
+  imports: [RouterOutlet, FormsModule, DatePipe, MatDialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
