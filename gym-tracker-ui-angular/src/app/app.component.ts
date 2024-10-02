@@ -32,14 +32,12 @@ export class AppComponent implements OnInit {
   getExercises() {
     this.exerciseService.getExercises().subscribe(response => {
       this.exercises = response;
-      console.log(this.exercises);
     });
   }
 
   getTrackingEntries() {
     this.trackingEntryService.getTrackingEntries().subscribe(response => {
       this.trackingEntries = response;
-      console.log(this.trackingEntries);
     });
   }
 
