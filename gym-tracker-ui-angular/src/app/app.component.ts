@@ -77,7 +77,10 @@ export class AppComponent implements OnInit {
 
   openNewEntryDialog() {
     const dialogRef = this.dialog.open(NewTrackingEntryDialogComponent, {
-      data: { selectedExerciseName: this.selectedExerciseName }
+      data: {
+        selectedExerciseName: this.selectedExerciseName,
+        exerciseId: this.selectedExerciseId
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

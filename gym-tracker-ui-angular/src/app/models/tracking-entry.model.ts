@@ -1,5 +1,5 @@
 export interface TrackingEntry {
-  id: number;
+  id?: number;
   date: string;
   loadInKg: number;
   reps: number;
