@@ -1,22 +1,30 @@
 <h1 mat-dialog-title>New Entry for {{ data.selectedExerciseName }}</h1>
 
 <div mat-dialog-content>
-  <form>
-    <label for="date">Date</label>
-    <input type="date" [(ngModel)]="date" id="date">
+  <form #entryForm="ngForm">
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput type="date" [(ngModel)]="date" name="date" id="date" required>
+    </mat-form-field>
 
-    <label for="load">Load (kg)</label>
-    <input type="number" [(ngModel)]="load" id="load">
+    <mat-form-field>
+      <mat-label>Load (kg)</mat-label>
+      <input matInput type="number" [(ngModel)]="load" name="load" id="load" required min="0">
+    </mat-form-field>
 
-    <label for="reps">Reps</label>
-    <input type="number" [(ngModel)]="reps" id="reps">
+    <mat-form-field>
+      <mat-label>Reps</mat-label>
+      <input matInput type="number" [(ngModel)]="reps" name="reps" id="reps" required min="0">
+    </mat-form-field>
 
-    <label for="sets">Sets</label>
-    <input type="number" [(ngModel)]="sets" id="sets">
+    <mat-form-field>
+      <mat-label>Sets</mat-label>
+      <input matInput type="number" [(ngModel)]="sets" name="sets" id="sets" required min="0">
+    </mat-form-field>
   </form>
 </div>
 
 <div mat-dialog-actions>
   <button mat-button (click)="close()">Cancel</button>
-  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="save()" [disabled]="!entryForm.valid">Save</button>
 </div>
