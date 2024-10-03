@@ -19,7 +19,7 @@ import { NewTrackingEntryDialogComponent } from './components/new-tracking-entry
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  title = 'GYM TRACKER';
+  title = 'GYM\'O TRACK\'A';
   exercises: Exercise[] = [];
   trackingEntries: TrackingEntry[] = [];
   filteredTrackingEntries: TrackingEntry[] = [];
