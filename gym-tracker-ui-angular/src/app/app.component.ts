@@ -90,12 +90,12 @@ export class AppComponent implements OnInit {
     });
   }
 
-  addNewTrackingEntry(entry: { date: string, load: number, reps: number, sets: number }) {
+  addNewTrackingEntry(entry: { date: string, loadInKg: number, reps: number, sets: number }) {
     const newEntry: TrackingEntry = {
       id: this.trackingEntries.length + 1,
       exerciseId: this.selectedExerciseId!,
       date: entry.date,
-      loadInKg: entry.load,
+      loadInKg: entry.loadInKg,
       reps: entry.reps,
       sets: entry.sets
     };
